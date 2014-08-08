@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>rapi</contextName>
+    <jmxConfigurator/>
+    <appender name="cpws" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.home}/logs/cpws.log</file>
+        <!-- Compress the application log daily at midnight -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.home}/logs/cpws.%d.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z, America/Los_Angeles} [%thread-%X{threadId}-%X{req.xForwardedFor}] -%X{req.userAgent} %-5level [%file:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="INFO">
+        <appender-ref ref="cpws" />
+    </root>
+
+</configuration>

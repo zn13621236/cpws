@@ -7,4 +7,11 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="com.casual.poll"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+            </list>
+        </property>
+    </bean>
 </beans>
