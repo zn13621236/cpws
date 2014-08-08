@@ -30,7 +30,7 @@ public class DefaultClientRepositoryTest {
         Client client = new Client();
         client.setClientId("aa");
         client.setClientSecret("aa");
-        client.setStatus("active");
+        client.setStatus(Client.ClientStatus.ACTIVE);
         clientRepository.saveClient(client);
     }
 }
