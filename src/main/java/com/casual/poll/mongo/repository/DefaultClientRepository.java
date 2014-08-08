@@ -1,5 +1,7 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.repository;
 
+import com.casual.poll.mongo.domain.Client;
+import com.casual.poll.mongo.domain.FieldName;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

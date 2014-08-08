@@ -1,10 +1,9 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.mongojack.ObjectId;
-
 import javax.persistence.Entity;
 
 /**

@@ -1,4 +1,4 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,19 +13,22 @@ import javax.persistence.Entity;
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Feed {
+public class Session {
     @ObjectId
     @JsonProperty(FieldName._ID)
     private String id;
 
-    private String guid;
-    private String content;
+    @JsonProperty(FieldName.CLIENT_ID)
+    private String clientId;
+
+    @JsonProperty(FieldName.USER_ID)
+    private String userId;
 
     @JsonProperty(FieldName.CREATED_TIME)
     private long createdTime;
 
-    @JsonProperty(FieldName.VOTE_COUNT)
-    private long voteCount;
+    @JsonProperty(FieldName.EXPIRED_TIME)
+    private long expiredTime;
 
     public String getId() {
         return id;
@@ -35,20 +38,20 @@ public class Feed {
         this.id = id;
     }
 
-    public String getGuid() {
-        return guid;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setGuid(String guid) {
-        this.guid = guid;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getContent() {
-        return content;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public long getCreatedTime() {
@@ -59,11 +62,11 @@ public class Feed {
         this.createdTime = createdTime;
     }
 
-    public long getVoteCount() {
-        return voteCount;
+    public long getExpiredTime() {
+        return expiredTime;
     }
 
-    public void setVoteCount(long voteCount) {
-        this.voteCount = voteCount;
+    public void setExpiredTime(long expiredTime) {
+        this.expiredTime = expiredTime;
     }
 }

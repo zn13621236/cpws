@@ -1,4 +1,4 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

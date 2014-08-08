@@ -1,4 +1,4 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.domain;
 
 /**
  * @author: ayang
@@ -15,4 +15,6 @@ public final class FieldName {
     public static final String EXPIRED_TIME = "expired_time";
     public static final String VOTE_COUNT = "vote_count";
     public static final String STATUS = "status";
+    //for feed collection
+    public static final String FEED_ID = "feed_id";
 }

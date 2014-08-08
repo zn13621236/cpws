@@ -1,4 +1,4 @@
-package com.casual.poll.repository;
+package com.casual.poll.mongo.repository;
 
 import com.casual.poll.mongo.WriteResultChecking;
 import com.fasterxml.jackson.databind.ObjectMapper;
