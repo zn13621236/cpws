@@ -10,3 +10,4 @@ rest.txt
 atlassian-ide-plugin.xml
 *.hprof
 *.hprof.index
+logs

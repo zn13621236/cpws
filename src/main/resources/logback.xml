@@ -6,7 +6,7 @@
         <file>${catalina.home}/logs/cpws.log</file>
         <!-- Compress the application log daily at midnight -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${catalina.home}/logs/cpws.%d.log.gz</fileNamePattern>
+            <fileNamePattern>logs/cpws.%d.log.gz</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
