@@ -5,6 +5,7 @@ import com.casual.feed.mongo.domain.Session;
 import com.mongodb.BasicDBObject;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -20,7 +21,8 @@ public class DefaultSessionRepository extends AbstractMongoRepository implements
 
     @Override
     public void saveSession(Session session) {
-        sessionCollection.save(session);
+        WriteResult<Session, String> result = sessionCollection.save(session);
+        session.setId(result.getSavedId());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.casual.feed.mongo.domain.Feed;
 import com.casual.feed.mongo.domain.RepositoryConstants;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class DefaultFeedRepository extends AbstractMongoRepository implements Fe
 
     @Override
     public void saveFeed(Feed feed) {
-        feedCollection.save(feed);
+        WriteResult<Feed, String> result = feedCollection.save(feed);
+        feed.setId(result.getSavedId());
     }
 
     @Override
