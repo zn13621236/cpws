@@ -1,12 +1,14 @@
 package com.casual.feed.mongo.repository;
 
-import com.casual.feed.mongo.domain.RepositoryConstants;
 import com.casual.feed.mongo.domain.Session;
 import com.mongodb.BasicDBObject;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
+
+import static com.casual.feed.mongo.domain.RepositoryConstants.Collections.SESSIONS;
+import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.*;
 
 /**
  * @author nanzhao
@@ -15,8 +17,13 @@ public class DefaultSessionRepository extends AbstractMongoRepository implements
     private JacksonDBCollection<Session, String> sessionCollection;
 
     @Override
-    public Session getSessionByUserId(String userId, String clientId) {
-        return sessionCollection.findOne(DBQuery.is(RepositoryConstants.Fields.USER_ID, userId).is(RepositoryConstants.Fields.CLIENT_ID, clientId));
+    public Session getSessionByUserIdAndClientId(String userId, String clientId) {
+        return sessionCollection.findOne(DBQuery.is(USER_ID, userId).is(CLIENT_ID, clientId));
+    }
+
+    @Override
+    public Session getSessionByToken(String token) {
+        return sessionCollection.findOne(DBQuery.is(TOKEN, token));
     }
 
     @Override
@@ -27,8 +34,8 @@ public class DefaultSessionRepository extends AbstractMongoRepository implements
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        sessionCollection = getCollection(Session.class, RepositoryConstants.Collections.SESSIONS);
-        sessionCollection.createIndex(new BasicDBObject(RepositoryConstants.Fields.USER_ID, 1).append(RepositoryConstants.Fields.CLIENT_ID, 1), UNIQUE_INDEX_OPTIONS);
-        sessionCollection.createIndex(new BasicDBObject(RepositoryConstants.Fields.TOKEN, 1), UNIQUE_INDEX_OPTIONS);
+        sessionCollection = getCollection(Session.class, SESSIONS);
+        sessionCollection.createIndex(new BasicDBObject(USER_ID, 1).append(CLIENT_ID, 1), UNIQUE_INDEX_OPTIONS);
+        sessionCollection.createIndex(new BasicDBObject(TOKEN, 1), UNIQUE_INDEX_OPTIONS);
     }
 }
