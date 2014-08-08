@@ -26,6 +26,7 @@ public class DefaultSessionRepository extends AbstractMongoRepository implements
     @Override
     public void afterPropertiesSet() throws Exception {
         sessionCollection = getCollection(Session.class, RepositoryConstants.Collections.SESSIONS);
-        sessionCollection.createIndex(new BasicDBObject(RepositoryConstants.Fields.USER_ID, 1).append(RepositoryConstants.Fields.CLIENT_ID, 1).append("unique", "true"));
+        sessionCollection.createIndex(new BasicDBObject(RepositoryConstants.Fields.USER_ID, 1).append(RepositoryConstants.Fields.CLIENT_ID, 1), UNIQUE_INDEX_OPTIONS);
+        sessionCollection.createIndex(new BasicDBObject(RepositoryConstants.Fields.TOKEN, 1), UNIQUE_INDEX_OPTIONS);
     }
 }

@@ -25,7 +25,7 @@ public class User {
     private String password;
 
     @JsonProperty(RepositoryConstants.Fields.STATUS)
-    private String status;
+    private UserStatus status;
 
     public String getEmail() {
         return email;
@@ -51,11 +51,15 @@ public class User {
         this.id = id;
     }
 
-    public String getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public enum UserStatus {
+        UNCONFORMED, CONFORMED, DELETED
     }
 }

@@ -4,7 +4,9 @@ import com.casual.feed.mongo.domain.User;
 import com.mongodb.BasicDBObject;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Repository;
 
 import static com.casual.feed.mongo.domain.RepositoryConstants.Collections.USERS;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.*;
@@ -12,6 +14,7 @@ import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.*;
 /**
  * @author nanzhao
  */
+@Repository
 public class DefaultUserRepository extends AbstractMongoRepository implements UserRepository, InitializingBean {
     private JacksonDBCollection<User, String> userCollection;
 
@@ -22,17 +25,18 @@ public class DefaultUserRepository extends AbstractMongoRepository implements Us
 
     @Override
     public User getUserByEmail(String email) {
-        return userCollection.findOne(DBQuery.is(EMAIL, email).is(STATUS, "active"));
+        return userCollection.findOne(DBQuery.is(EMAIL, email).in(STATUS, User.UserStatus.CONFORMED, User.UserStatus.UNCONFORMED));
     }
 
     @Override
     public void saveUser(User user) {
-        userCollection.save(user);
+        WriteResult<User, String> result = userCollection.save(user);
+        user.setId(result.getSavedId());
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         userCollection = getCollection(User.class, USERS);
-        userCollection.createIndex(new BasicDBObject(EMAIL, 1).append("unique", "true"));
+        userCollection.createIndex(new BasicDBObject(EMAIL, 1), UNIQUE_INDEX_OPTIONS);
     }
 }

@@ -3,6 +3,7 @@ package com.casual.feed.mongo.repository;
 import com.casual.feed.mongo.WriteResultChecking;
 import com.casual.feed.mongo.repository.support.MongoRepositorySupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 abstract public class AbstractMongoRepository {
     private final static MongoRepositorySupport mongoRepositorySupport = new MongoRepositorySupport();
-
+    protected final static BasicDBObject UNIQUE_INDEX_OPTIONS = new BasicDBObject("unique", "true");
     @Autowired
     private DB db;
 

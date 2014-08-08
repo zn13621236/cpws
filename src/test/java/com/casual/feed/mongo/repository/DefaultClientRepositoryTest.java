@@ -1,4 +1,4 @@
-package com.casual.feed.repository;
+package com.casual.feed.mongo.repository;
 
 
 import junit.framework.Assert;
