@@ -10,5 +10,5 @@ public interface UserRepository {
 
     public User getUserByEmail(String email);
 
-    public void saveUser(User user);
+    public User saveUser(User user);
 }

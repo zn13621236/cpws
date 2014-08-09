@@ -10,7 +10,7 @@ public interface FeedRepository {
 
     public Feed getFeedById (String feedId);
 
-    public void saveFeed (Feed feed);
+    public Feed saveFeed (Feed feed);
 
     List <Feed> getFeedByUserId (String userId);
 }

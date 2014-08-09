@@ -29,9 +29,10 @@ public class DefaultUserRepository extends AbstractMongoRepository implements Us
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         WriteResult<User, String> result = userCollection.save(user);
         user.setId(result.getSavedId());
+        return user;
     }
 
     @Override

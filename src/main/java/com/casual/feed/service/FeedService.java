@@ -1,10 +1,15 @@
 package com.casual.feed.service;
 
-interface FeedService {
+import java.util.List;
+import com.casual.feed.mongo.domain.Feed;
 
-    void addFeed (String content, String userId);
+public interface FeedService {
+
+    Feed addFeed (String content, String userId);
 
     void likeFeed (String feedId, String userId);
 
     void dislikeFeed (String feedId, String userId);
+
+    List <Feed> listFeed (String userId);
 }
