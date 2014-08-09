@@ -6,13 +6,14 @@ import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
-
+import org.springframework.stereotype.Repository;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Collections.SESSIONS;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.*;
 
 /**
  * @author nanzhao
  */
+@Repository
 public class DefaultSessionRepository extends AbstractMongoRepository implements SessionRepository, InitializingBean {
     private JacksonDBCollection<Session, String> sessionCollection;
 

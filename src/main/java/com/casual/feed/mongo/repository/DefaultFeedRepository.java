@@ -6,9 +6,8 @@ import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.springframework.beans.factory.InitializingBean;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
-
 import static com.casual.feed.mongo.domain.RepositoryConstants.Collections.FEEDS;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.USER_ID;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Fields._ID;
@@ -16,6 +15,7 @@ import static com.casual.feed.mongo.domain.RepositoryConstants.Fields._ID;
 /**
  * @author nanzhao
  */
+@Repository
 public class DefaultFeedRepository extends AbstractMongoRepository implements FeedRepository, InitializingBean {
     private JacksonDBCollection<Feed, String> feedCollection;
 
