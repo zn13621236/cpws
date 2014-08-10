@@ -4,9 +4,12 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +30,7 @@ public class FeedResource {
     @GET
     @Path ("/{id}")
     @Produces (MediaType.APPLICATION_JSON)
-    public List <Feed> getFeed (@PathVariable ("id") String userId) {
+    public List <Feed> getFeed (@PathParam ("id") String userId,@HeaderParam ("token") String token) {
         return feedService.listFeed (userId);
     }
 
@@ -35,7 +38,7 @@ public class FeedResource {
     @Path ("/{id}")
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces (MediaType.APPLICATION_JSON)
-    public Feed addFeed (@PathVariable ("id") String userId, Feed feed) {
+    public Feed addFeed (@PathParam ("id") String userId,Feed feed) {
         return feedService.addFeed (feed.getContent (), userId);
     }
     
