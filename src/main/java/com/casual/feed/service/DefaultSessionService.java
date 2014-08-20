@@ -17,6 +17,9 @@ public class DefaultSessionService implements SessionService {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private TokenGenerator tokenGenerator;
+
     @Override
     public Session getSessionByToken(String token) {
         Session session = sessionRepository.getSessionByToken(token);
@@ -27,6 +30,15 @@ public class DefaultSessionService implements SessionService {
             }
             session.setClientId(client.getClientId());
         }
+        return session;
+    }
+
+    public Session createSession(String clientId, String userId) {
+        Session session = new Session();
+        session.setClientId(clientId);
+        session.setUserId(userId);
+        session.setToken(tokenGenerator.generateToken());
+        sessionRepository.saveSession(session);
         return session;
     }
 }

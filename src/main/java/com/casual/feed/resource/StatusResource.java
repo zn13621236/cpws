@@ -1,6 +1,6 @@
 package com.casual.feed.resource;
 
-import com.casual.feed.resource.domain.Status;
+import com.casual.feed.resource.domain.response.Status;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * @author: ayang
+ * @author: jinglongyang
  */
 @Path("/v1/status")
 @Component

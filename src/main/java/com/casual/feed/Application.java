@@ -2,6 +2,7 @@ package com.casual.feed;
 
 import com.casual.feed.context.RequestSession;
 import com.casual.feed.context.RequestSessionInjectee;
+import com.casual.feed.jersey.exception.mapper.CpwsServiceExceptionMapper;
 import com.casual.feed.jersey.security.AuthenticationFilter;
 import com.casual.feed.jersey.security.AuthorizationFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -31,6 +32,7 @@ public class Application extends ResourceConfig {
             }
         });
 
+        register(CpwsServiceExceptionMapper.class);
         packages("com.casual.feed.resource");
     }
 }

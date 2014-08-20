@@ -6,5 +6,7 @@ import com.casual.feed.mongo.domain.Session;
  * @author: ayang
  */
 public interface SessionService {
-	Session getSessionByToken(String token);
+    Session getSessionByToken(String token);
+
+    Session createSession(String clientId, String userId);
 }

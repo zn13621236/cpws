@@ -1,12 +1,14 @@
 package com.casual.feed.service;
 
+import com.casual.feed.context.RequestSession;
+import com.casual.feed.resource.domain.request.CreateUserRequest;
+import com.casual.feed.resource.domain.request.LoginRequest;
+import com.casual.feed.resource.domain.response.UserResponse;
+
 public interface UserService {
+    UserResponse login(RequestSession session, LoginRequest loginRequest);
 
-    void createUser (String email, String passWord, String clientId);
+    UserResponse createUser(RequestSession session, CreateUserRequest createUserRequest);
 
-    boolean authenticateUser (String email, String passWord);
-
-    void removeUser (String email);
-
-    void updateUser (String email, String newEmail);
+    UserResponse getUserById(String id);
 }

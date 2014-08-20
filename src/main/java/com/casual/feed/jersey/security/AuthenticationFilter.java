@@ -1,5 +1,6 @@
 package com.casual.feed.jersey.security;
 
+import com.casual.feed.jersey.exception.ForbiddenException;
 import com.casual.feed.mongo.domain.Client;
 import com.casual.feed.mongo.domain.Session;
 import com.casual.feed.service.ClientService;
@@ -11,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;

@@ -1,4 +1,4 @@
-package com.casual.feed.resource.domain;
+package com.casual.feed.resource.domain.response;
 
 /**
  * @author: ayang

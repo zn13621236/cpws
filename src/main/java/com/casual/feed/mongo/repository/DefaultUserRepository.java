@@ -29,16 +29,20 @@ public class DefaultUserRepository extends AbstractMongoRepository implements Us
     }
 
     @Override
-    public User saveUser(User user) {
+    public User getUserByUsername(String username) {
+        return userCollection.findOne(DBQuery.is(USERNAME, username).in(STATUS, User.UserStatus.CONFORMED, User.UserStatus.UNCONFORMED));
+    }
+
+    @Override
+    public void saveUser(User user) {
         WriteResult<User, String> result = userCollection.save(user);
         user.setId(result.getSavedId());
-        return user;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         userCollection = getCollection(User.class, USERS);
-        userCollection.createIndex(new BasicDBObject(EMAIL, 1), UNIQUE_INDEX_OPTIONS);
+//        userCollection.createIndex(new BasicDBObject(EMAIL, 1), UNIQUE_INDEX_OPTIONS);
         userCollection.createIndex(new BasicDBObject(USERNAME, 1), UNIQUE_INDEX_OPTIONS);
     }
 }

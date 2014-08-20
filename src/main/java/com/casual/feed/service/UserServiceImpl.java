@@ -1,74 +1,66 @@
 package com.casual.feed.service;
 
-import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.casual.feed.mongo.domain.Session;
+import com.casual.feed.context.RequestSession;
+import com.casual.feed.jersey.exception.GoneException;
+import com.casual.feed.jersey.exception.NotFoundException;
+import com.casual.feed.jersey.exception.UnauthorizedAccessException;
 import com.casual.feed.mongo.domain.User;
 import com.casual.feed.mongo.domain.User.UserStatus;
-import com.casual.feed.mongo.repository.SessionRepository;
 import com.casual.feed.mongo.repository.UserRepository;
+import com.casual.feed.resource.domain.request.CreateUserRequest;
+import com.casual.feed.resource.domain.request.LoginRequest;
+import com.casual.feed.resource.domain.response.UserResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * @author jinglongyang
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository    userRepo;
+    private UserRepository userRepository;
+
     @Autowired
-    SessionRepository sessionRepo;
+    private SessionService sessionService;
 
-    /**
-     * for user sign up
-     */
     @Override
-    public void createUser (String email, String passWord, String clientId) {
-        // save in user collection
-        User user = new User ();
-        user.setEmail (email);
-        user.setPassword (passWord);
-        user.setStatus (UserStatus.CONFORMED);
-        user = userRepo.saveUser (user);
-        // save in session collection
-        Session session = new Session ();
-        session.setClientId (clientId);
-        session.setUserId (user.getId ());
-        session.setToken (UUID.randomUUID ().toString ());
-        sessionRepo.saveSession (session);
+    public UserResponse login(RequestSession requestSession, LoginRequest loginRequest) {
+        loginRequest.getUsername();
+        User user = userRepository.getUserByUsername(loginRequest.getUsername());
+        if (user == null) {
+            throw new UnauthorizedAccessException("not_found.username");
+        }
+        if (!user.getPassword().equals(loginRequest.getPassword())) {
+            throw new UnauthorizedAccessException("invalid_value.password");
+        }
+
+        return new UserResponse(user, sessionService.createSession(requestSession.getClientId(), user.getId()));
     }
 
-    /**
-     * for user log in
-     */
     @Override
-    public boolean authenticateUser (String email, String passWord) {
-        return true;
+    public UserResponse createUser(RequestSession requestSession, CreateUserRequest createUserRequest) {
+        //TODO validation
+        User user = new User();
+        user.setUsername(createUserRequest.getUsername());
+        user.setEmail(createUserRequest.getEmail());
+        user.setPassword(createUserRequest.getPassword());
+        user.setStatus(UserStatus.CONFORMED);
+        userRepository.saveUser(user);
+
+        return new UserResponse(user, sessionService.createSession(requestSession.getClientId(), user.getId()));
     }
 
-    /**
-     * for remove user
-     */
     @Override
-    public void removeUser (String email) {
-        if (email == null)
-            return;
-        User user = userRepo.getUserByEmail (email);
-        if (user == null)
-            return;
-        user.setStatus (UserStatus.DELETED);
-        userRepo.saveUser (user);
-    }
-
-    /**
-     * for update user
-     */
-    @Override
-    public void updateUser (String email, String newEmail) {
-        if (email == null)
-            return;
-        User user = userRepo.getUserByEmail (email);
-        if (user == null)
-            return;
-        user.setEmail (newEmail);
-        userRepo.saveUser (user);
+    public UserResponse getUserById(String id) {
+        User user = userRepository.getUserById(id);
+        if (user == null) {
+            throw new NotFoundException("");
+        }
+        if (user.getStatus() == UserStatus.DELETED) {
+            throw new GoneException("");
+        }
+        return new UserResponse(user);
     }
 }
