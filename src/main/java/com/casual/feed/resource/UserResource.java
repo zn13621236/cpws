@@ -12,6 +12,7 @@ import com.casual.feed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +30,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @CredentialAuth
-    public UserResponse createUser(@Context RequestSession session, CreateUserRequest createUserRequest) {
+    public UserResponse createUser(@Context RequestSession session, @Valid CreateUserRequest createUserRequest) {
         return userService.createUser(session, createUserRequest);
     }
 
