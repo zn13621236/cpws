@@ -39,5 +39,6 @@ public class DefaultUserRepository extends AbstractMongoRepository implements Us
     public void afterPropertiesSet() throws Exception {
         userCollection = getCollection(User.class, USERS);
         userCollection.createIndex(new BasicDBObject(EMAIL, 1), UNIQUE_INDEX_OPTIONS);
+        userCollection.createIndex(new BasicDBObject(USERNAME, 1), UNIQUE_INDEX_OPTIONS);
     }
 }

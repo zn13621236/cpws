@@ -7,101 +7,99 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.mongojack.ObjectId;
 
 import javax.persistence.Entity;
-import java.security.Principal;
 
 /**
  * @author: ayang
  */
-@Entity (name = RepositoryConstants.Collections.SESSIONS)
-@JsonSerialize (include = JsonSerialize.Inclusion.NON_NULL)
-@JsonIgnoreProperties (ignoreUnknown = true)
-public class Session implements Principal {
-	@ObjectId
-	@JsonProperty (RepositoryConstants.Fields._ID)
-	private String id;
+@Entity(name = RepositoryConstants.Collections.SESSIONS)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Session {
+    @ObjectId
+    @JsonProperty(RepositoryConstants.Fields._ID)
+    private String id;
 
-	@JsonProperty (RepositoryConstants.Fields.CLIENT_ID)
-	private String clientId;
+    @JsonProperty(RepositoryConstants.Fields.CLIENT_ID)
+    private String clientId;
 
-	@JsonProperty (RepositoryConstants.Fields.USER_ID)
-	private String userId;
+    @JsonProperty(RepositoryConstants.Fields.USER_ID)
+    private String userId;
 
-	@JsonProperty (RepositoryConstants.Fields.TOKEN)
-	private String token;
+    @JsonProperty(RepositoryConstants.Fields.TOKEN)
+    private String token;
 
-	@JsonProperty (RepositoryConstants.Fields.CREATED_TIME)
-	private long createdTime;
+    @JsonProperty(RepositoryConstants.Fields.CREATED_TIME)
+    private long createdTime;
 
-	@JsonProperty (RepositoryConstants.Fields.EXPIRED_TIME)
-	private long expiredTime;
+    @JsonProperty(RepositoryConstants.Fields.EXPIRED_TIME)
+    private long expiredTime;
 
-	@JsonIgnore
-	private Client client;
+    @JsonIgnore
+    private SessionType type;
 
-	public String getId() {
-		return id;
-	}
+    public Session() {
+        this.type = SessionType.token;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public Session(Client client) {
+        this.clientId = client.getClientId();
+        this.type = SessionType.credential;
+    }
 
-	public String getClientId() {
-		return clientId;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getClientId() {
+        return clientId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-	public long getCreatedTime() {
-		return createdTime;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setCreatedTime(long createdTime) {
-		this.createdTime = createdTime;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public long getExpiredTime() {
-		return expiredTime;
-	}
+    public long getCreatedTime() {
+        return createdTime;
+    }
 
-	public void setExpiredTime(long expiredTime) {
-		this.expiredTime = expiredTime;
-	}
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public long getExpiredTime() {
+        return expiredTime;
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public void setExpiredTime(long expiredTime) {
+        this.expiredTime = expiredTime;
+    }
 
-	@JsonIgnore
-	public boolean isExpired() {
-		return System.currentTimeMillis() >= expiredTime;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public Client getClient() {
-		return client;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    @JsonIgnore
+    public boolean isExpired() {
+        return System.currentTimeMillis() >= expiredTime;
+    }
 
-	@Override
-	@JsonIgnore
-	public String getName() {
-		return id;
-	}
+    public SessionType getType() {
+        return type;
+    }
 }

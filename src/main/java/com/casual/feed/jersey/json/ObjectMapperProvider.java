@@ -1,4 +1,4 @@
-package com.casual.feed.jersey.provider;
+package com.casual.feed.jersey.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

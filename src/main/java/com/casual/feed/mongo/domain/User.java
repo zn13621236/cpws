@@ -1,5 +1,6 @@
 package com.casual.feed.mongo.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,6 +18,9 @@ public class User {
     @ObjectId
     @JsonProperty(RepositoryConstants.Fields._ID)
     private String id;
+
+    @JsonProperty(RepositoryConstants.Fields.USERNAME)
+    private String username;
 
     @JsonProperty(RepositoryConstants.Fields.EMAIL)
     private String email;
@@ -59,7 +63,20 @@ public class User {
         this.status = status;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public enum UserStatus {
-        UNCONFORMED, CONFORMED, DELETED
+        UNCONFORMED, CONFORMED, DELETED;
+
+        @JsonCreator
+        public static UserStatus fromValue(String status) {
+            return UserStatus.valueOf(status);
+        }
     }
 }

@@ -11,8 +11,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Repository;
 
 import static com.casual.feed.mongo.domain.RepositoryConstants.Collections.CLIENTS;
-import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.CLIENT_ID;
 import static com.casual.feed.mongo.domain.RepositoryConstants.Fields.STATUS;
+import static com.casual.feed.mongo.domain.RepositoryConstants.Fields._ID;
 
 /**
  * @author: ayang
@@ -23,7 +23,7 @@ public class DefaultClientRepository extends AbstractMongoRepository implements 
 
     private final CacheLoader<String, Client> clientLoader = new CacheLoader<String, Client>() {
         public Client load(String clientId) {
-            return clientCollection.findOne(DBQuery.is(CLIENT_ID, clientId).is(STATUS, "active"));
+            return clientCollection.findOne(DBQuery.is(_ID, clientId).is(STATUS, Client.ClientStatus.ACTIVE));
         }
     };
 

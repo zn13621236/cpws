@@ -30,8 +30,9 @@ public final class RepositoryConstants {
         public static final String TOKEN = "token";
         public static final String EMAIL = "email";
         public static final String PASSWORD = "password";
+        public static final String USERNAME = "username";
         //for feed collection
-        public static final String FEED_ID = "feed_id";
+//        public static final String FEED_ID = "feed_id";
     }
 
 }
